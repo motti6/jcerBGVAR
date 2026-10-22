@@ -37,7 +37,9 @@ R CMD check --as-cran --no-manual: Status: 1 NOTE
 All four vignettes built. README example rerun in a fresh R session against the archive-installed build.
 --no-manual omits LaTeX compilation. _R_CHECK_FORCE_SUGGESTS_=false; optional pkgdown unavailable.
 Development version is intentionally marked .9000; incoming/CRAN notes are recorded in the check log.
-Local Windows 11 / R 4.6.1 / i7-1165G7 only; cross-platform CI workflow provided but not run remotely.
+Local Windows 11 / R 4.6.1 / i7-1165G7 checks are recorded separately from remote CI.
+Windows/macOS/Linux GitHub Actions workflow: https://github.com/motti6/jcerBGVAR/actions/workflows/R-CMD-check.yaml.
+Consult the individual workflow run for current cross-platform outcomes; this file does not infer success from configuration alone.
 
 ## Limits
 

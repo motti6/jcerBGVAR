@@ -9,7 +9,7 @@
 - [x] BGVAR historical-data and revised synthetic validation scripts/results provided.
 - [x] Git excludes local libraries, archives, working logs and binary posterior draws.
 - [x] No official institutional endorsement or stable-release status is asserted.
-- [ ] Push the reviewed development source to the specified GitHub repository.
+- [x] Push the reviewed development source to the specified GitHub repository.
 - [ ] Inspect actual Windows/macOS/Linux CI results after pushing; local Windows results are recorded separately.
 
 ## Before a stable release or CRAN submission
