@@ -1,0 +1,15 @@
+.library/
+artifacts/
+*.rds
+.DS_Store
+.Rproj.user/
+.env
+.env.*
+!.env.example
+*.Rcheck/
+*.tar.gz
+*.zip
+.Rhistory
+.RData
+artifacts/logs/*inspection.txt
+artifacts/historical-pilot*.rds

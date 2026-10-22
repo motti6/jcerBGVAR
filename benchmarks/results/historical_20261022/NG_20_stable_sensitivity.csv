@@ -1,0 +1,2 @@
+"case","requested_draws","stable_draws","max_absolute_error","target"
+"NG_20",1000,441,1.60982338570648e-15,"both methods conditioned on strictly stable BGVAR world draws"

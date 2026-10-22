@@ -1,0 +1,64 @@
+---
+title: "Reproduce timings and uncertainty validation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Reproduce timings and uncertainty validation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Package checks intentionally use only small models. The primary evaluation in
+0.1.1 is the historical/revised workflow described below. These original scripts
+remain available as legacy development checks. From the source directory:
+
+```{r, eval=FALSE}
+source("benchmarks/run_benchmarks.R")
+source("benchmarks/run_simulations.R")
+source("benchmarks/optional_bgvar.R")
+```
+
+The default benchmark covers 3/6/12/20 countries, T=80/120/200, p=1/2, 100 draws
+and five repetitions after warm-up. A separate 12-country configuration measures
+cores=1/2/4/8. `Rscript benchmarks/run_benchmarks.R --full` expands to the complete
+cross-product of these cores and 200 draws. Raw stage times, stable rates and
+object sizes are written to CSV; stage plots are PDF/PNG. Peak process memory
+is left NA unless measured separately. Package load/compile times are excluded.
+Country-worker startup belongs to the country stage. BLAS thread settings,
+CPU identifier and session information are recorded. On small jobs, clock
+resolution may yield zero stage times; these are real measurements.
+
+The independent Gibbs comparison has identical likelihood and MNIW prior.
+Four chains report a selected coefficient's classical Rhat and initial positive
+pair ESS (not a comprehensive modern convergence assessment), moments and
+ESS/second. Raw draw-count timing is distinct from effective-sample timing.
+IRF distributions are compared after independently forming world systems.
+Monte Carlo reports bias, RMSE, pointwise 68/90 percent coverage and correct
+sign probability. Twenty quick replications are exploratory; use `--full`
+for 200 replications. Coverage limitations of conditional estimation with a
+simultaneous DGP remain relevant.
+
+BGVAR is a separate practical model comparison: Normal-Gamma/Minnesota,
+covariance assumptions and priors differ. Its output discrepancy is not a
+numerical approximation error of MNIW and its elapsed-time ratio is not a
+same-model algorithmic speedup. No VB benchmark exists until VB is validated.
+
+The revised primary evaluation is `benchmarks/run_historical_validation.R`:
+4/12/20-country BGVAR NG fits, MN with a long rate, and an SV sensitivity case.
+Each uses 1000 retained draws, 1000 burn-in and five repetitions after warm-up.
+BGVAR inference is shared between its public IRF path and `jcer_irf_bgvar()`.
+Both compute one shock, all responses, horizons 0..12, raw draws and identical
+five quantiles. Timing includes setup/normalization/propagation/quantiles;
+order alternates across repetitions. Auxiliary median structural summaries
+returned only by the public BGVAR function remain an additional baseline cost.
+
+`benchmarks/run_synthetic_validation.R` runs 500 independent datasets for each
+of two aligned lag-only regimes, plus 200 simultaneous diagnostic datasets.
+It reports pointwise coverage/Monte Carlo standard errors and dataset-clustered
+aggregate standard errors. `--pilot` is only a smoke run and cannot replace
+the full results. The independent lag-only assembly harness is checked against
+the general package fit for shared country seeds and all world draws.
+
+`benchmarks/run_irf_benchmark_matched.R` replaces the previous synthetic timing:
+both paths start with raw G0/G_l/Sigma_e, and both include decomposition,
+impact, normalization, propagation and five quantiles. Earlier 3.6x timing
+used different setup boundaries and is superseded for performance claims.

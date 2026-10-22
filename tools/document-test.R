@@ -1,0 +1,7 @@
+Sys.setlocale("LC_CTYPE", ".UTF-8")
+.libPaths(c(normalizePath(".library"), .libPaths()))
+roxygen2::roxygenise(".")
+dir.create("artifacts/logs", recursive = TRUE, showWarnings = FALSE)
+result <- testthat::test_local(".", reporter = "summary")
+tab <- as.data.frame(result)
+write.csv(tab[, vapply(tab, is.atomic, logical(1)), drop = FALSE], "artifacts/logs/test_results.csv", row.names = FALSE)

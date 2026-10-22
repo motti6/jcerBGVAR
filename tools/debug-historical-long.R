@@ -1,0 +1,8 @@
+Sys.setlocale("LC_CTYPE", ".UTF-8")
+.libPaths(c(normalizePath(".library"), .libPaths()))
+source("benchmarks/historical-common.R")
+d <- historical_data(4, TRUE)
+print(lapply(d$data, colnames)); print(d$countries)
+b <- historical_bgvar_fit(d, 50, 50, 9, "MN", FALSE)
+print(colnames(b$xglobal)); print(b$args$Data[[1]][1:2, ])
+g <- historical_bgvar_irf(b)

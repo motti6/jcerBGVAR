@@ -1,0 +1,22 @@
+Package: preJCERBGVAR
+Type: Package
+Title: Development Tools for Bayesian Global Vector Autoregressions
+Version: 0.1.1.9000
+Authors@R: person("motohiro", "watanabe", role = c("aut", "cre"), email = "watanabemotosan@gmail.com")
+Description: Conditional country-level Bayesian global vector autoregressions
+    with matrix-normal inverse-Wishart priors and independent posterior draws.
+    Provides synthetic data with known dynamics, linked world systems, selected
+    impulse responses and single-shock sign restrictions. Explicitly distinguishes
+    conditional country inference from a simultaneous world likelihood.
+    Also provides selected-vector impulse responses from an unchanged fitted
+    'BGVAR' posterior, with explicit shock-definition compatibility.
+License: GPL-3
+Encoding: UTF-8
+Depends: R (>= 4.1.0)
+Imports: stats, graphics, grDevices, parallel, utils
+Suggests: testthat (>= 3.0.0), knitr, rmarkdown, roxygen2, pkgdown, BGVAR
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.1.1
+URL: https://github.com/motti6/jcerBGVAR
+BugReports: https://github.com/motti6/jcerBGVAR/issues

@@ -1,0 +1,87 @@
+---
+title: "Model, posterior target and numerical methods"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Model, posterior target and numerical methods}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+For country i, foreign variables are $x^*_{it}=H_i x_t$ and domestic variables
+are selected by $E_i$. Conditional regressions contain an intercept, domestic
+lags, optional current foreign variables and foreign lags in that order.
+
+$$x_{it}=c_i+\sum_{l=1}^p A_{il}x_{i,t-l}+B_{i0}x^*_{it}
+                +\sum_{l=1}^p B_{il}x^*_{i,t-l}+e_{it}.$$
+
+The world rows are $G_{0i}=E_i-B_{i0}H_i$ and
+$G_{li}=A_{il}E_i+B_{il}H_i$. Independent country errors imply block diagonal
+$\Sigma_e$; reduced-form covariance is $G_0^{-1}\Sigma_e G_0^{-T}$.
+Production code transforms a covariance factor using a cached general QR
+factorization of G0, which need not be symmetric. The recurrence
+$G_0r_h=\sum_lG_lr_{h-l}$ reuses this factorization and retains selected responses.
+
+For $Y=ZB+E$, use $E\sim MN(0,I,\Sigma)$,
+$B|\Sigma\sim MN(B_0,V_0,\Sigma)$ and $\Sigma\sim IW(S_0,\nu_0)$.
+The IW density uses $|\Sigma|^{-(\nu_0+k+1)/2}$.
+
+$$Q_n=V_0^{-1}+Z'Z,\quad V_n=Q_n^{-1},\quad
+B_n=V_n(V_0^{-1}B_0+Z'Y),$$
+$$S_n=S_0+(Y-ZB_n)'(Y-ZB_n)+(B_n-B_0)'V_0^{-1}(B_n-B_0),
+\quad \nu_n=\nu_0+T.$$
+
+Draw $\Sigma\sim IW(S_n,\nu_n)$ and $B|\Sigma\sim MN(B_n,V_n,\Sigma)$.
+These are independent draws, require no burn-in, and use Cholesky triangular
+solves for SPD matrices. Defaults: $B_0=0$, $V_0=I$, $S_0=0.1I$, $\nu_0=k+2$.
+They differ from BGVAR's NG/SSVS/Minnesota priors.
+
+The independent validation Gibbs sampler uses
+$B|\Sigma,Y\sim MN(B_n,V_n,\Sigma)$ and
+$\Sigma|B,Y\sim IW(S_n+(B-B_n)'Q_n(B-B_n),\nu_n+q)$,
+where q is the regressor count. This is the same MNIW model, not a comparison
+across different priors. It is implemented separately in the benchmarks.
+
+The target is the product of conditional country posteriors under weak foreign
+exogeneity. This is **not** the full simultaneous world likelihood. A fully
+simultaneous formulation also contains $T\log|\det G_0|$. Contemporaneous
+foreign variables in the simulated simultaneous DGP can correlate with country
+errors: exact conditional sampling does not prove correct frequentist coverage
+for that DGP. The Monte Carlo results diagnose this distinction rather than
+guarantee coverage. `stability="keep"` retains unstable but invertible draws;
+`"condition"` discards unstable draws and changes the posterior target. Numerical
+singular/ill-conditioned G0 draws are counted and excluded with a warning.
+
+Generalized impact is $\Sigma_u e_j/\sqrt{\Sigma_{u,jj}}$. Recursive impacts
+use Cholesky in the explicitly supplied ordering. Single-shock signs use
+$P Q e_1$ with $PP'=\Sigma_u$ and Haar Q from Gaussian QR with diagonal sign
+correction. Rejection is within each country posterior draw and retains the
+same accepted rotation count per draw. This defines conditional rotation
+uncertainty, not an entire simultaneous-world structural posterior. Conflicting
+restrictions or inadequate attempts cause an error with acceptance diagnostics.
+Normalization divides each accepted impact into the desired positive 25bp
+impact; impacts below `normalization_tol` are rejected. Vary that tolerance as
+a sensitivity analysis. No foreign rate sign restriction is added implicitly.
+Quantiles combine parameter and rotation uncertainty, not bounds on an
+identified set. There is no zero/rank restriction or multiple-shock identification.
+
+Structured VB, Normal-Gamma hierarchy, ELBO and hybrid inference are not
+implemented or exposed as working methods. See the research roadmap for
+validation gates. A point estimate cannot replace distributional inference.
+
+The revised synthetic validation sets `contemporaneous=FALSE` in both generation
+and fitting for its primary scenarios. Then G0=I, regressors contain only past
+values, and the joint likelihood conditional on initial lags factors by country.
+Moderate and persistent regimes are evaluated separately. A simultaneous scenario
+is retained as an explicitly labelled diagnostic of exogeneity failure.
+Coverage is reported by response/horizon, with Monte Carlo standard errors across
+independent generated datasets. Mechanically zero foreign impact responses at h=0
+are excluded. Dataset-level aggregates account for dependence between horizons.
+
+For an existing BGVAR posterior, `jcer_irf_bgvar()` propagates a selected vector
+using the stored reduced lag matrices, retaining all fitted posterior draws.
+BGVAR 2.7.0's GIRF impact is proportional to G0-inverse times Sigma_e times e_j;
+after own-impact normalization this is generally different from Sigma_u times e_j.
+The `definition="bgvar"` default matches the former exactly; the explicitly
+different `"world_generalized"` option uses the latter. The historical same-model
+speed comparison fixes `definition="bgvar"` and includes setup, propagation and
+five posterior quantiles for both paths. It changes neither the prior nor inference.

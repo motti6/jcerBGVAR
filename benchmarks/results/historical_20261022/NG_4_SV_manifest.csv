@@ -1,0 +1,5 @@
+"country","selected_trade_mass","excluded_trade_mass","period_start","period_end","variables","transform","explicit_input_rate_unit","output_rate_unit","n_obs"
+"US",0.284229990823765,0.715770009176235,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"JP",0.418198169204295,0.581801830795705,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"EA",0.196604278359622,0.803395721640378,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"KR",0.425488495588545,0.574511504411455,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75

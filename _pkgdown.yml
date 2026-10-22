@@ -1,0 +1,11 @@
+template:
+  bootstrap: 5
+reference:
+- title: Conditional GVAR and synthetic data
+  contents:
+  - starts_with("jcer_")
+- title: Display
+  contents:
+  - print.JCERBGVAR
+  - summary.JCERBGVAR
+  - plot.JCERBGVAR_irf

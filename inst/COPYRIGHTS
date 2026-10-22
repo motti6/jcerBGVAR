@@ -1,0 +1,10 @@
+Copyright (c) 2026 motohiro watanabe.
+
+preJCERBGVAR is distributed under the GNU General Public License version 3.
+See COPYING for the standard license text.
+
+BGVAR is an optional, separately distributed dependency. Its source code and
+historical example observations are not bundled with this package. Validation
+scripts load its data from the user's installed BGVAR package.
+
+No institutional endorsement is asserted by this development package.

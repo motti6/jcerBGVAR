@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "Please cite this development software. Interfaces and methods may change before a stable release."
+title: "preJCERBGVAR: Development Tools for Bayesian Global Vector Autoregressions"
+version: 0.1.1.9000
+type: software
+authors:
+  - family-names: "watanabe"
+    given-names: "motohiro"
+    email: "watanabemotosan@gmail.com"
+license: GPL-3.0-only
+repository-code: "https://github.com/motti6/jcerBGVAR"
+url: "https://github.com/motti6/jcerBGVAR"
+abstract: "Development package for conditional MNIW GVAR inference and selected-vector impulse responses from unchanged BGVAR posterior draws."

@@ -1,0 +1,6 @@
+citHeader("To cite preJCERBGVAR, please use the following development-software citation:")
+bibentry(bibtype = "Manual",
+         title = "preJCERBGVAR: Development Tools for Bayesian Global Vector Autoregressions",
+         author = person("motohiro", "watanabe"), year = "2026",
+         note = paste("R package version", meta$Version, "(development version)"),
+         url = "https://github.com/motti6/jcerBGVAR")

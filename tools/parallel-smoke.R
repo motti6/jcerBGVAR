@@ -1,0 +1,8 @@
+Sys.setlocale("LC_CTYPE", ".UTF-8")
+.libPaths(c(normalizePath(".library"), .libPaths()))
+library(preJCERBGVAR)
+s <- jcer_simulate_gvar(n_obs = 40)
+f <- jcer_bgvar(s$data, s$W, draws = 20, seed = 2, cores = 1)
+g <- jcer_bgvar(s$data, s$W, draws = 20, seed = 2, cores = 2)
+stopifnot(identical(f$countries, g$countries), identical(f$worlds, g$worlds))
+cat("Serial / 2-country-worker results are identical.\n")

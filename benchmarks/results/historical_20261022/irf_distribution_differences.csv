@@ -1,0 +1,6 @@
+"case","comparison","median_rmse","endpoint_mae"
+"NG_4","same posterior, country-error GIRF vs world-generalized innovation: NOT numerical error",0.0101456441383386,0.00801777986722505
+"NG_12","same posterior, country-error GIRF vs world-generalized innovation: NOT numerical error",0.0282188699359735,0.0221242510957776
+"NG_20","same posterior, country-error GIRF vs world-generalized innovation: NOT numerical error",0.0521092327512595,0.036186930908908
+"MN_4_long","same posterior, country-error GIRF vs world-generalized innovation: NOT numerical error",0.00637714271675278,0.00500467695821051
+"NG_4_SV","same posterior, country-error GIRF vs world-generalized innovation: NOT numerical error",0.00128978505140657,0.00119381061185813

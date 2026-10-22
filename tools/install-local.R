@@ -1,0 +1,8 @@
+Sys.setlocale("LC_CTYPE", ".UTF-8")
+dir.create(".library", showWarnings = FALSE)
+.libPaths(c(normalizePath(".library"), .libPaths()))
+Sys.setenv(LC_ALL = if (.Platform$OS.type == "windows") "Japanese_Japan.utf8" else "C.UTF-8", TZ = "UTC")
+install.packages(".", repos = NULL, type = "source", lib = ".library")
+stopifnot(requireNamespace("preJCERBGVAR", quietly = TRUE))
+cat("Installed package in:", normalizePath(".library"), "\n")
+print(rmarkdown::find_pandoc())

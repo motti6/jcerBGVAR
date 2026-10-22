@@ -1,0 +1,2 @@
+"comparison","direct_draws","gibbs_draws_per_chain","burnin_per_chain","direct_seconds","gibbs_seconds_per_chain","speedup_draw_budget","mean_abs_posterior_mean_difference","mean_abs_variance_difference","selected_coefficient_Rhat","selected_coefficient_ESS_per_chain","gibbs_ESS_per_second","direct_ESS_per_second"
+"same conditional MNIW; one country; independent direct vs four-chain Gibbs",2500,2500,1000,0.83,0.515,0.620481927710843,0.00166031908728691,0.000217841154530046,1.00013197396021,2423.38922331857,4723.94275598051,3012.04819277108

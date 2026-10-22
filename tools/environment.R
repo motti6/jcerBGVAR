@@ -1,0 +1,7 @@
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+cat(R.version.string, "\n")
+print(.libPaths())
+p <- installed.packages()
+print(p[intersect(c("BGVAR", "testthat", "roxygen2", "knitr", "rmarkdown", "pkgdown"), rownames(p)), c("Package", "Version"), drop = FALSE])
+print(Sys.which(c("git", "g++", "make", "pandoc")))
+print(sessionInfo())

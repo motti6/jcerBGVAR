@@ -1,0 +1,4 @@
+Loaded BGVAR eerData and W.trade0012 in memory only.
+Available selected countries: US, JP, EA, KR
+Historical 1995Q1-2013Q4 sample; stir is a short-term market rate, not the policy decision.
+No real-data causal IRF is claimed. Main benchmarks use identical synthetic observations.

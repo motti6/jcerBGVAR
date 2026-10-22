@@ -1,0 +1,18 @@
+Sys.setlocale("LC_CTYPE", ".UTF-8")
+.libPaths(c(normalizePath(".library"), .libPaths()))
+library(BGVAR)
+e <- new.env(); data("eerData", package = "BGVAR", envir = e)
+print(packageVersion("BGVAR")); print(lapply(e$eerData[c("US", "JP", "EA", "KR")], dim))
+print(lapply(e$eerData, colnames)); print(e$W.trade0012[1:5, 1:5])
+print(lapply(e$eerData[c("US", "JP", "EA", "KR")], head, n = 2))
+print(args(BGVAR::bgvar)); print(args(BGVAR::irf))
+ns <- asNamespace("BGVAR")
+print(ls(ns, all.names = TRUE)[grepl("irf|stack|BVAR", ls(ns, all.names = TRUE))])
+for (fun in c("bgvar", "irf.bgvar", ".gvar.stacking.wrapper", ".BVAR_linear_wrapper")) {
+  cat("\nFUNCTION ", fun, "\n", sep = "")
+  txt <- deparse(body(get(fun, ns)))
+  hit <- grep("SIGMA|S_large|A_large|Ginv|posterior|store|scale|quantiles|pmax|n.ahead|MaxTries|end.estim|start.estim|Standard|standard|center|intercept|trend|constant|cons|time|args|expert", txt)
+  idx <- sort(unique(unlist(lapply(hit, function(j) seq(max(1,j-2), min(length(txt),j+3))))))
+  cat(paste(sprintf("%d: %s", idx, txt[idx]), collapse = "\n"), "\n")
+}
+cat(tools::Rd2txt(tools::Rd_db("BGVAR")[["eerData.Rd"]]), sep = "\n")

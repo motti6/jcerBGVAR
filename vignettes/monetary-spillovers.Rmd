@@ -1,0 +1,64 @@
+---
+title: "Synthetic international rate spillovers"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Synthetic international rate spillovers}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+library(preJCERBGVAR)
+s <- jcer_simulate_gvar(4, 120, seed = 31,
+                         variables = c("y", "r_short", "r_long", "price"))
+fit <- jcer_bgvar(s$data, s$W, draws = 30, seed = 31)
+responses <- paste(rep(c("JP", "EA", "KR"), each = 4),
+                   c("y", "r_short", "r_long", "price"), sep = ".")
+g <- jcer_irf(fit, "US.r_short", responses, horizon = 8, shock_bp = 25)
+```
+
+These are synthetic innovations, not historical causal estimates. Inspect a
+single response pair before producing a large research figure:
+
+```{r, fig.height=5}
+plot(jcer_irf(fit, "US.r_short", c("JP.r_short", "JP.y"), horizon = 8, shock_bp = 25))
+restrictions <- data.frame(variable = c("US.r_short", "US.y"),
+                           horizon = c(0L, 1L), sign = c(1, -1))
+signed <- jcer_irf_sign(fit, restrictions, "US.r_short", c("JP.r_short", "JP.y"),
+                         horizon = 8, max_tries = 5000, seed = 10)
+signed$acceptance_rate
+plot(signed)
+```
+
+`benchmarks/optional_bgvar.R` loads the installed BGVAR example data in a local
+environment; no BGVAR data or code are redistributed. Its historical `stir`
+variable is a short-term market rate, not the policy decision itself. The
+1995Q1--2013Q4 sample is not current 2026 data. Any real-data application needs
+explicit transformation, units and credible identifying assumptions.
+
+The main historical validation now uses `benchmarks/run_historical_validation.R`.
+It loads `eerData`/`W.trade0012` from the installed package at runtime, takes
+the same countries and columns for both methods and explicitly renormalizes
+trade weights after country selection. GDP is 100 times the log difference;
+Dp is multiplied by 100; rate inputs are explicitly declared decimal and
+converted to percent points. The common transformed sample has 75 observations.
+No unit is guessed from numerical magnitudes. Country/period/variable/weight
+manifests are saved alongside results, without copying observations.
+
+```{r, eval=FALSE}
+source("benchmarks/historical-common.R")
+d <- historical_data(4, include_long_rate = TRUE, input_rate_unit = "decimal")
+baseline <- BGVAR::bgvar(d$data, d$W, draws = 1000, burnin = 1000,
+                         prior = "NG", SV = FALSE, eigen = FALSE, verbose = FALSE)
+# Same inference and country-error GIRF definition; replace post-processing only.
+fast <- jcer_irf_bgvar(baseline, "US.stir", c("JP.y", "JP.stir", "JP.ltir"),
+                        horizon = 12, shock_size = .25, rate_unit = "percent")
+plot(fast)
+```
+
+The benchmark compares every retained raw IRF draw and all five quantiles to
+`BGVAR::irf()`. Stable-draw sensitivity uses the same filtered draw subset for
+both post-processors. Main timing retains all draws to fix the work budget and
+reports stable fractions. Timing equivalence does not establish MCMC convergence
+or identify a causal policy effect. The separate MNIW comparison aligns the
+world-generalized shock definition before discussing model differences.

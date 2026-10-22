@@ -1,0 +1,36 @@
+---
+title: "Quickstart: conditional GVAR on synthetic data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Quickstart: conditional GVAR on synthetic data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+library(preJCERBGVAR)
+sim <- jcer_simulate_gvar(n_countries = 3, n_obs = 120, seed = 42, contemporaneous = FALSE)
+fit <- jcer_bgvar(sim$data, sim$W, draws = 100, seed = 42, contemporaneous = FALSE)
+summary(fit)
+ir <- jcer_irf(fit, "US.r_short", c("JP.r_short", "JP.y"), horizon = 12,
+               identification = "generalized", shock_bp = 25)
+plot(ir)
+```
+
+All observations and figures are synthetic. Generalized innovations do not
+identify a pure Fed policy causal effect. Rates default to percent points:
+25 basis points equals 0.25, or 0.0025 with `rate_unit="decimal"`.
+The rate unit is explicit metadata; the fitter never rescales observations.
+Transform GDP/prices to a suitable stationary scale before fitting real data.
+The default prior is not invariant to rescaling: use appropriately rescaled
+`prior_control` when comparing percent and decimal parameterizations.
+
+The fit contains country coefficient/covariance draws and posterior parameters,
+prepared regressions and E/H maps, usable world draws, stage timings, posterior
+target text, and counts/reasons for excluded draws. Input matrices must share
+variable names and sample rows; unlabeled matrices assume aligned observations.
+
+`cores=2` uses independent country RNG seeds and produces identical country
+draws to `cores=1`. Small jobs may be slower because workers must start.
+Seeded calls restore the caller's RNG state. Changing draw count preserves
+the prefix within every country's draws.

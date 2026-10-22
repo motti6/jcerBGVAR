@@ -1,0 +1,36 @@
+R version 4.6.1 (2026-06-24 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26100)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=Japanese_Japan.utf8  LC_CTYPE=Japanese_Japan.utf8
+[3] LC_MONETARY=Japanese_Japan.utf8 LC_NUMERIC=C
+[5] LC_TIME=Japanese_Japan.utf8
+
+time zone: UTC
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] JCERBGVAR_0.1.1
+
+loaded via a namespace (and not attached):
+ [1] xts_0.14.2         bayesm_3.1-7       cellranger_1.1.0   xfun_0.60
+ [5] Matrix_1.7-5       readxl_1.5.0.1     lattice_0.22-9     coda_0.19-4.1
+ [9] zoo_1.8-15         BGVAR_2.7.0        abind_1.4-8        parallel_4.6.1
+[13] knitr_1.51         stochvol_3.2.9     RcppParallel_6.2.1 GIGrvg_0.8
+[17] cli_3.6.6          grid_4.6.1         compiler_4.6.1     tools_4.6.1
+[21] evaluate_1.0.5     Rcpp_1.1.2         otel_0.2.0         rlang_1.3.0
+[25] MASS_7.3-65
+BGVAR: 2.7.0
+Threads: 1 1
+All comparisons sequential; input data preparation and package loading excluded; warm-up excluded.
+Same-BGVAR timing includes extraction, shock construction, normalization, propagation and quantiles.
+BGVAR public IRF also produces auxiliary median structural summaries not returned by selected-vector IRF.
+No equal-model inference speedup claimed: inference is unchanged in the primary comparison.
+Historical data loaded from installed BGVAR; no observations copied into this repository.

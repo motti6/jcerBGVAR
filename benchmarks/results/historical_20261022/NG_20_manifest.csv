@@ -1,0 +1,21 @@
+"country","selected_trade_mass","excluded_trade_mass","period_start","period_end","variables","transform","explicit_input_rate_unit","output_rate_unit","n_obs"
+"US",0.48650721246237,0.51349278753763,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"JP",0.694037635953774,0.305962364046226,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"EA",0.684402124308765,0.315597875691235,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"KR",0.733968817918364,0.266031182081636,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"UK",0.794797745059346,0.205202254940654,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"CN",0.710808091022791,0.289191908977209,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"CZ",0.929918151925547,0.0700818480744528,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"HU",0.922858562851461,0.0771414371485393,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"PL",0.892623679381255,0.107376320618745,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"SI",0.903656040476639,0.0963439595233609,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"SK",0.949107791164202,0.050892208835798,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"BG",0.832727629426535,0.167272370573465,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"RO",0.884112437601803,0.115887562398197,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"EE",0.791703124711778,0.208296875288222,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"LT",0.856169241740875,0.143830758259125,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"LV",0.835033399767949,0.164966600232051,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"HR",0.895202941900278,0.104797058099722,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"AL",0.863666816855055,0.136333183144945,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"RU",0.825355037989141,0.174644962010859,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
+"UA",0.82481193949504,0.17518806050496,"1995 Q2","2013 Q4","y;Dp;stir","100*diff(logGDP);100*Dp;100*decimal_market_rates","decimal","percent",75
